@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "822795434514",
+    "firebase_url": "https://bakeapplication.firebaseio.com",
+    "project_id": "bakeapplication",
+    "storage_bucket": "bakeapplication.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:822795434514:android:7c3bb10f2c7df59cd676cb",
+        "android_client_info": {
+          "package_name": "kr.co.bakeapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "822795434514-ofbjnobe9hutj1bel1ocu17u5ev78ibg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "kr.co.bakeapplication",
+            "certificate_hash": "fffae5b12cc89876b6c08beea224d4f81a424097"
+          }
+        },
+        {
+          "client_id": "822795434514-6f61ta56ra8ocpursovc8m21isgjid3u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6YAVkFTiEPu-orR8v5rQcEq9SCvFlXM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "822795434514-6f61ta56ra8ocpursovc8m21isgjid3u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
