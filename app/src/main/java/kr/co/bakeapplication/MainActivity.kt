@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         Firebase.auth.signOut()
         _mGoogleSignInClient.signOut()
-        val intent = Intent(applicationContext, RecipeActivity::class.java)
+        val intent = Intent(applicationContext, DashboardActivity::class.java)
         startActivity(intent)
     }
 }

@@ -17,7 +17,6 @@ class FirebaseAuthRepository {
         Firebase.auth
     }
 
-
     fun isLogin(): Boolean{
         return auth.currentUser != null
     }

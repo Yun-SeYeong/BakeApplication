@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".views.RecipeActivity"></activity>
+        <activity android:name=".views.MyRecipeActivity"></activity>
+        <activity android:name=".views.RecipeActivity" />
         <activity android:name=".views.ProfileActivity" />
         <activity android:name=".views.LoginActivity" />
         <activity android:name=".views.DashboardActivity" />

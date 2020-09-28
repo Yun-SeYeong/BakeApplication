@@ -1,6 +1,7 @@
 package kr.co.bakeapplication.viewmodels
 
 import android.app.Activity
+import android.content.Intent
 import android.util.Log
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
@@ -8,13 +9,16 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import kr.co.bakeapplication.R
 import kr.co.bakeapplication.repositorys.FirebaseAuthRepository
 import kr.co.bakeapplication.viewhandlers.BaseActivityHandler
+import kotlin.math.sign
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
-class LoginViewModel(val application: Activity): ViewModel() {
+class LoginViewModel(private val application: Activity): ViewModel() {
     private var _currentState: LoginState by Delegates.observable(LoginState.init(),{
         _: KProperty<*>,
         _: LoginState,
@@ -70,10 +74,10 @@ class LoginViewModel(val application: Activity): ViewModel() {
 
     fun signInResult(idToken: String) {
         _currentState = LoginState.startLogin()
+        Log.d("BaseActivity", "signInResult")
         _firebaseAuthRepository.signInWithGoogle(idToken)
             .addOnCompleteListener(application) { task ->
-                if (task.isSuccessful) {
-                    Log.d("BaseActivity", "LoginState.endLogin()")
+                _currentState = if (task.isSuccessful) {
                     LoginState.endLogin()
                 } else {
                     LoginState.onError(task.exception!!)
