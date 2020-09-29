@@ -10,7 +10,7 @@ import kr.co.bakeapplication.viewmodels.MyRecipeViewModel
 class RecipeViewModelFactory(private val activity: Activity): ViewModelProvider.Factory{
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass.isAssignableFrom(MyRecipeViewModel::class.java)){
-            MyRecipeViewModel() as T
+            MyRecipeViewModel(activity) as T
         }else{
             throw IllegalArgumentException()
         }

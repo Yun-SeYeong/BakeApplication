@@ -39,7 +39,7 @@ class RecipeActivity : AppCompatActivity() {
                 "(상황을 봐가면 시간과 온도는 조금씩 조절한다 윗면과 아랫면의 굽기차이가 심하면 판 위치를 올리고 내리거나 추가로 판을 닷대어준다)\n"))
         pages.add(RecipePage("9. 계란풀기","구워진 마들렌을 팬과 분리후 살짝 기울여 식힌다\n"))
 
-        val recipe = Recipe("마들렌", pages)
+        val recipe = Recipe("마들렌", "Creator1", pages)
 
 
         val pageAdapter = ScreenSlidePagerAdapter(recipe.pages, supportFragmentManager)
