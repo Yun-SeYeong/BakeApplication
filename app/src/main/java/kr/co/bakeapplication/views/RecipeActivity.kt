@@ -42,7 +42,7 @@ class RecipeActivity : AppCompatActivity() {
         val recipe = Recipe("마들렌", "Creator1", pages)
 
 
-        val pageAdapter = ScreenSlidePagerAdapter(recipe.pages, supportFragmentManager)
+        val pageAdapter = ScreenSlidePagerAdapter(recipe.pages!!, supportFragmentManager)
         mBinding.layoutRecipeViewpager.adapter = pageAdapter
     }
 

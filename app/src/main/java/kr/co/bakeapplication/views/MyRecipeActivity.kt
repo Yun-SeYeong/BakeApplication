@@ -29,12 +29,6 @@ class MyRecipeActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         mBinding.viewmodel = mViewModel
 
-        val pages = ArrayList<RecipePage>()
-        pages.add(RecipePage("1","des1"))
-        pages.add(RecipePage("2","des2"))
-        mViewModel.addRecipe(Recipe("test1", "creator1", pages))
-        mViewModel.addRecipe(Recipe("test2", "creator1", pages))
-        mViewModel.addRecipe(Recipe("test3", "creator1", pages))
     }
 
     companion object{

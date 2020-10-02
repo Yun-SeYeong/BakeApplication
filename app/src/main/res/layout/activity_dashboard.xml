@@ -87,10 +87,12 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <View
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/layout_dashboard_pid"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                app:items="@{viewmodel.recipeList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
 
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
