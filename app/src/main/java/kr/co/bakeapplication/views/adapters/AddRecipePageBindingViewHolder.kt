@@ -5,7 +5,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 
-class RecipeBindingViewHolder<T: ViewDataBinding> : RecyclerView.ViewHolder{
+class AddRecipePageBindingViewHolder<T: ViewDataBinding>: RecyclerView.ViewHolder{
     val mBinding: T
 
     constructor(itemView: View): super(itemView) {

@@ -28,7 +28,6 @@ class MyRecipeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.viewmodel = mViewModel
-
     }
 
     companion object{

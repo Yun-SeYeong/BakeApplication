@@ -12,7 +12,9 @@ import com.google.firebase.database.ktx.getValue
 import kr.co.bakeapplication.data.Recipe
 import kr.co.bakeapplication.repositorys.FirebaseDBRepository
 import kr.co.bakeapplication.viewhandlers.BaseActivityHandler
+import kr.co.bakeapplication.views.AddRecipeActivity
 import kr.co.bakeapplication.views.DashboardActivity
+import kr.co.bakeapplication.views.MyRecipeActivity
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
@@ -78,6 +80,12 @@ class MyRecipeViewModel(private val application: Activity): ViewModel() {
 
     fun backButtonEvent() {
         val intent = Intent(application, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        application.startActivity(intent)
+    }
+
+    fun addRecipeButtonEvent() {
+        val intent = Intent(application, AddRecipeActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         application.startActivity(intent)
     }

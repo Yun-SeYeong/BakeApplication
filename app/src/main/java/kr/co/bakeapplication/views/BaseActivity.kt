@@ -1,5 +1,6 @@
 package kr.co.bakeapplication.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
@@ -37,5 +38,11 @@ abstract class BaseActivity : AppCompatActivity(), BaseActivityHandler {
 
     override fun onError(throwable: Throwable) {
         Log.d(TAG, "onError()")
+    }
+
+    override fun onBackPressed() {
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+        startActivity(intent)
     }
 }

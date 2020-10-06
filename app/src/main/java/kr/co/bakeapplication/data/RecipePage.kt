@@ -1,8 +1,10 @@
 package kr.co.bakeapplication.data
 
+import com.google.firebase.database.IgnoreExtraProperties
 import java.io.Serializable
 
+@IgnoreExtraProperties
 data class RecipePage(
-    val title: String,
-    val description: String
+    var title: String,
+    var description: String
 ): Serializable

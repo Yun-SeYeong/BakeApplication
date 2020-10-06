@@ -7,7 +7,7 @@ import kr.co.bakeapplication.R
 import kr.co.bakeapplication.databinding.ActivityProfileBinding
 import kr.co.bakeapplication.viewmodels.ProfileViewModel
 
-class ProfileActivity : AppCompatActivity() {
+class ProfileActivity : BaseActivity() {
     private val mBinding: ActivityProfileBinding by lazy { DataBindingUtil.setContentView<ActivityProfileBinding>(this, R.layout.activity_profile) }
     private val mViewModel: ProfileViewModel by lazy { ProfileViewModel(this) }
 
