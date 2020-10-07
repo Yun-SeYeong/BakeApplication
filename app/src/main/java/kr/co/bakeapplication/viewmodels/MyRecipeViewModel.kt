@@ -56,7 +56,7 @@ class MyRecipeViewModel(private val application: Activity): ViewModel() {
 
     fun syncRecipes() {
         _currentState = MyRecipeState.startLoading()
-        _firebaseDBRepository.readRecipes(object: ValueEventListener{
+        _firebaseDBRepository.readMyRecipes(object: ValueEventListener{
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }

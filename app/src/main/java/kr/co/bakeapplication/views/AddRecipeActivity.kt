@@ -22,9 +22,6 @@ class AddRecipeActivity : BaseActivity(), AddRecipePageActivityHandler {
         super.onCreate(savedInstanceState)
 
         mBinding.viewmodel = mViewModel
-
-        mViewModel.recipePageList.add(RecipePage("test1", "des1"))
-        mViewModel.recipePageList.add(RecipePage("test2", "des2"))
     }
 
     companion object{

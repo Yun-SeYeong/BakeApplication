@@ -35,4 +35,9 @@ class FirebaseDBRepository {
     fun readRecipes(listener: ValueEventListener) {
         _dbRef.child("recipes").addListenerForSingleValueEvent(listener)
     }
+
+    fun readMyRecipes(listener: ValueEventListener) {
+        Log.d("BaseActivity", "uid : " + _auth.uid)
+        _dbRef.child("recipes").orderByChild("creatoruid").equalTo(_auth.uid).addListenerForSingleValueEvent(listener)
+    }
 }
