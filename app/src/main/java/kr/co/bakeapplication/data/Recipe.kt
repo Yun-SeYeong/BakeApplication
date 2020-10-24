@@ -8,6 +8,7 @@ import java.io.Serializable
 data class Recipe(
     var recipename: String,
     var creatoruid: String,
+    var thumbNailUri: String,
     var pages: ArrayList<RecipePage>?
 ): Serializable{
     @Exclude
@@ -15,6 +16,7 @@ data class Recipe(
         return mapOf(
             "recipename" to recipename,
             "creatoruid" to creatoruid,
+            "thumbNailUri" to thumbNailUri,
             "pages" to pages
         )
     }
@@ -23,10 +25,11 @@ data class Recipe(
     fun toObj(map: Map<String, Any?>) {
         recipename = map["recipename"].toString()
         creatoruid = map["creatoruid"].toString()
+        thumbNailUri = map["thumbNailUri"].toString()
         pages = ArrayList<RecipePage>()
         if (map["pages"] != null){
             for (page in (map["pages"] as ArrayList<HashMap<String, String>>)){
-                pages!!.add(RecipePage(page["title"]!!, page["description"]!!))
+                pages!!.add(RecipePage(page["title"]!!, page["imageUri"]!!, page["description"]!!))
             }
         }
 

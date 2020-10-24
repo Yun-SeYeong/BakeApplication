@@ -85,7 +85,7 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
                 if (list != null) {
                     for ((k, v) in list) {
                         Log.d("BaseActivity", "value : " + v)
-                        val r = Recipe("","", null)
+                        val r = Recipe("","", "",null)
                         r.toObj(v as Map<String, Any?>)
                         _recipeList.add(r)
                     }

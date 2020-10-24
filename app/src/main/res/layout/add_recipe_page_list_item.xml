@@ -2,32 +2,82 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
-            name="page"
-            type="kr.co.bakeapplication.data.RecipePage" />
+        name="page"
+        type="kr.co.bakeapplication.data.RecipePage" />
+        <variable
+            name="viewmodel"
+            type="kr.co.bakeapplication.viewmodels.AddPageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/picture_frame"
+        android:padding="8dp">
 
-        <EditText
-            android:id="@+id/editText_recipepage_title"
+        <LinearLayout
+            android:id="@+id/layout_recipepage_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={page.title}"
-            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textview_recipepage_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="페이지 제목"
+                android:textSize="21dp"
+                android:layout_margin="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_recipepage_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={page.title}"
+                android:textSize="21dp"
+                android:layout_margin="8dp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/button_recipepage_imagepicker"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@android:drawable/picture_frame"
+            android:text="test"
+            android:onClick="@{() -> viewmodel.loadImagePicker()}"
+            app:layout_constraintTop_toBottomOf="@+id/layout_recipepage_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
-        <EditText
-            android:id="@+id/editText_recipepage_description"
+        <LinearLayout
+            android:id="@+id/layout_recipepage_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@={page.description}"
-            app:layout_constraintTop_toBottomOf="@id/editText_recipepage_title"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            android:orientation="vertical"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@+id/button_recipepage_imagepicker">
+
+            <TextView
+                android:id="@+id/textview_recipepage_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="설명"
+                android:textSize="21dp"
+                android:layout_margin="8dp"/>
+
+            <EditText
+                android:id="@+id/editText_recipepage_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@={page.description}"
+                android:inputType="textMultiLine"
+                android:layout_margin="8dp"/>
+
+        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

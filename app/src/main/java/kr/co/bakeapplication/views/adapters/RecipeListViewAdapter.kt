@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kr.co.bakeapplication.R
 import kr.co.bakeapplication.data.Recipe
 import kr.co.bakeapplication.databinding.RecipeListItemBinding
@@ -32,6 +33,7 @@ class RecipeListViewAdapter: RecyclerView.Adapter<RecipeBindingViewHolder<Recipe
         position: Int
     ) {
         holder.mBinding.recipe = recipes[position]
+        Glide.with(mContext).load(recipes[position].thumbNailUri).into(holder.mBinding.imageviewRecipeThumbnail)
         holder.mBinding.layoutRecipeItem.setOnClickListener {
             val intent = Intent(mContext, RecipeActivity::class.java)
             intent.putExtra("RECIPE", recipes[position])

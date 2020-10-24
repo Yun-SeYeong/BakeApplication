@@ -1,9 +1,11 @@
 package kr.co.bakeapplication.views
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import kr.co.bakeapplication.R
 import kr.co.bakeapplication.data.RecipePage
@@ -22,6 +24,9 @@ class AddRecipeActivity : BaseActivity(), AddRecipePageActivityHandler {
         super.onCreate(savedInstanceState)
 
         mBinding.viewmodel = mViewModel
+        mViewModel.thumbNailImage.observe(this, Observer {
+            mBinding.imageviewAddrecipepageThumbnail.setImageURI(it)
+        })
     }
 
     companion object{

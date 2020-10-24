@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="8dp"
         tools:context=".views.AddRecipeActivity">
 
         <LinearLayout
@@ -25,33 +26,47 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:paddingHorizontal="8dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/textview_addrecipe_recipename"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="title"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"/>
+                    android:text="제목: "
+                    android:textSize="32dp"/>
 
                 <EditText
                     android:id="@+id/editText_addrecipepage_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@={viewmodel.title}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/textview_addrecipe_recipename"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    android:text="@={viewmodel.title}"/>
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageview_addrecipepage_thumbnail"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center_horizontal"
+                android:onClick="@{() -> viewmodel.loadImagePicker()}"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="#eaeaea"
+                android:layout_marginVertical="12dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_addrecipe_pages"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="8dp"
                 app:items="@{viewmodel.recipePageList}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/add_recipe_page_list_item"/>
 
             <Button
                 android:layout_width="match_parent"

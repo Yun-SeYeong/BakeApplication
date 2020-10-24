@@ -3,15 +3,17 @@ package kr.co.bakeapplication.repositorys
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.runBlocking
 import kr.co.bakeapplication.data.Recipe
 
 class FirebaseDBRepository {
+    interface OnWriteRecipeListener{
+        fun OnComplete()
+    }
 
     private val _dbRef: DatabaseReference by lazy {
         Firebase.database.reference
@@ -21,15 +23,45 @@ class FirebaseDBRepository {
         Firebase.auth
     }
 
-    fun writeRecipe(recipe: Recipe) {
+    private val _storageRepository: FirebaseStorageRepository by lazy {
+        FirebaseStorageRepository()
+    }
+
+    fun writeRecipe(recipe: Recipe, listener: OnWriteRecipeListener) {
         val key = _dbRef.child("recipes").push().key
         recipe.creatoruid = _auth.uid!!
-        val postValue = recipe.toMap()
 
-        val childUpdate = hashMapOf<String, Any>(
-            "/recipes/$key" to postValue
-        )
-        _dbRef.updateChildren(childUpdate)
+        var progress = recipe.pages!!.size + 1
+
+        fun proccess() {
+            runBlocking {
+                if (--progress == 0) {
+                    listener.OnComplete()
+                }
+            }
+        }
+
+        _storageRepository.uploadFile("RecipeImage/$key/thumbnail", recipe.thumbNailUri).addOnCompleteListener {
+            _storageRepository.getDownloadUrl("RecipeImage/$key/thumbnail").addOnCompleteListener {
+                recipe.thumbNailUri = it.result.toString()
+                proccess()
+            }
+        }
+
+        for((i, page) in recipe.pages!!.withIndex()) {
+            Log.d("BaseActivity", page.imageUri)
+            _storageRepository.uploadFile("RecipeImage/$key/page$i", page.imageUri).addOnCompleteListener {
+                _storageRepository.getDownloadUrl("RecipeImage/$key/page$i").addOnCompleteListener {
+                    recipe.pages!![i].imageUri = it.result.toString()
+                    val postValue = recipe.toMap()
+                    val childUpdate = hashMapOf<String, Any>(
+                        "/recipes/$key" to postValue
+                    )
+                    _dbRef.updateChildren(childUpdate)
+                    proccess()
+                }
+            }
+        }
     }
 
     fun readRecipes(listener: ValueEventListener) {

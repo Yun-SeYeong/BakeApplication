@@ -11,15 +11,23 @@
     <LinearLayout
         android:id="@+id/layout_recipe_item"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:padding="16dp"
         android:background="@android:drawable/dialog_holo_light_frame"
         android:foreground="?android:attr/selectableItemBackground">
 
         <TextView
+            android:id="@+id/textview_recipe_recipename"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{recipe.recipename}"/>
+
+        <ImageView
+            android:id="@+id/imageview_recipe_thumbnail"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
 

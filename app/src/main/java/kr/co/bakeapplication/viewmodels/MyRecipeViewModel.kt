@@ -14,7 +14,6 @@ import kr.co.bakeapplication.repositorys.FirebaseDBRepository
 import kr.co.bakeapplication.viewhandlers.BaseActivityHandler
 import kr.co.bakeapplication.views.AddRecipeActivity
 import kr.co.bakeapplication.views.DashboardActivity
-import kr.co.bakeapplication.views.MyRecipeActivity
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
 
@@ -49,11 +48,6 @@ class MyRecipeViewModel(private val application: Activity): ViewModel() {
     val recipeList: ObservableArrayList<Recipe>
         get() = _recipeList
 
-
-    fun addRecipe(recipe: Recipe) {
-        _firebaseDBRepository.writeRecipe(recipe)
-    }
-
     fun syncRecipes() {
         _currentState = MyRecipeState.startLoading()
         _firebaseDBRepository.readMyRecipes(object: ValueEventListener{
@@ -68,7 +62,7 @@ class MyRecipeViewModel(private val application: Activity): ViewModel() {
                 if (list != null) {
                     for ((k, v) in list) {
                         Log.d("BaseActivity", "value : " + v)
-                        val r = Recipe("","", null)
+                        val r = Recipe("","","",null)
                         r.toObj(v as Map<String, Any?>)
                         _recipeList.add(r)
                     }

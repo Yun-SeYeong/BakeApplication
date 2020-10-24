@@ -4,6 +4,7 @@ import android.net.Uri
 import android.util.Log
 import com.google.android.gms.tasks.Task
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.UploadTask
 import com.google.firebase.storage.ktx.storage
 import java.io.File
 
@@ -14,16 +15,10 @@ class FirebaseStorageRepository {
 
     private val _storageRef = _storage.reference
 
-    fun uploadFile(uploadPath: String, path: String) {
+    fun uploadFile(uploadPath: String, path: String): UploadTask {
         val uri = Uri.fromFile(File(path))
-        val recipeImageRef = _storageRef.child("${uploadPath}/${uri.lastPathSegment}")
-        val task = recipeImageRef.putFile(uri)
-
-        task.addOnFailureListener {
-            Log.d("BaseActivity", "upload fail: $it")
-        }.addOnCompleteListener {
-            Log.d("BaseActivity", "upload complete")
-        }
+        val recipeImageRef = _storageRef.child("$uploadPath")
+       return recipeImageRef.putFile(uri)
     }
 
     fun getDownloadUrl(path: String): Task<Uri> {
