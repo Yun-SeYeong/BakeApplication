@@ -12,12 +12,14 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingHorizontal="16dp"
         tools:context=".views.MyRecipeActivity">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/layout_myrecipe_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -26,7 +28,7 @@
                 android:id="@+id/textView_myrecipe_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="MyRecipe"
+                android:text="내 레시피"
                 android:textSize="30sp"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -46,23 +48,41 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_myrecipe_recipes"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#eaeaea"
+            app:layout_constraintTop_toBottomOf="@id/layout_myrecipe_title"/>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefreshlayout_myrecipe_recipes"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toBottomOf="@id/layout_myrecipe_title"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:items="@{viewmodel.recipeList}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <Button
-            android:layout_width="match_parent"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_myrecipe_recipes"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                app:items="@{viewmodel.recipeList}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/recipe_list_item"/>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:overScrollMode="never"
             android:text="새 레시피"
+            android:foreground="@drawable/baseline_add_black_24dp"
             android:onClick="@{ () -> viewmodel.addRecipeButtonEvent()}"
-            app:layout_constraintTop_toBottomOf="@id/recyclerview_myrecipe_recipes"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

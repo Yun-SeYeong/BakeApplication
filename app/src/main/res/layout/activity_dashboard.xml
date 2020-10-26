@@ -9,102 +9,126 @@
             name="viewmodel"
             type="kr.co.bakeapplication.viewmodels.DashboardViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
         tools:context=".views.DashboardActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/layout_dashboard_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:background="@android:drawable/dialog_holo_light_frame"
-            android:clickable="true"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:background="@null"
+            android:clickable="true">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:clickable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:onClick="onProfileClicked"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <Button
-                    android:id="@+id/button_dashboard_profile"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:background="@drawable/ic_account_circle_black_24dp"
-                    android:visibility="@{viewmodel.isLogin ? View.VISIBLE : View.GONE}"
-                    android:onClick="@{ () -> viewmodel.userProfileButtonEvent() }"/>
-
-            </LinearLayout>
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:id="@+id/layout_dashboard_mainboard"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/layout_dashboard_title"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <TextView
-                android:id="@+id/layout_dashboard_chart"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:layout_margin="12dp"
-                android:background="#acacac"
-                android:gravity="center"
-                android:text="Chart" />
-
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@android:drawable/dialog_holo_light_frame"
-                android:paddingHorizontal="16dp"
-                android:paddingVertical="8dp">
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <EditText
-                    android:id="@+id/editText_dashboard_search"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/button_dashboard_search"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:id="@+id/button_dashboard_search"
-                    style="@style/Widget.AppCompat.Button.Borderless"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="4dp"
-                    android:background="@drawable/ic_search_black_24dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:background="@android:drawable/dialog_holo_light_frame"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:padding="10dp"
+                    android:onClick="onProfileClicked"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <Button
+                        android:id="@+id/button_dashboard_profile"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:layout_width="52dp"
+                        android:layout_height="52dp"
+                        android:background="@drawable/ic_account_circle_black_24dp"
+                        android:visibility="@{viewmodel.isLogin ? View.VISIBLE : View.GONE}"
+                        android:onClick="@{ () -> viewmodel.userProfileButtonEvent() }"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/layout_dashboard_pid"
+                </LinearLayout>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swiperefreshlayout_dashboard_mainboard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dp"
-                app:items="@{viewmodel.recipeList}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:layout_height="wrap_content">
 
-        </LinearLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <LinearLayout
+                    android:id="@+id/layout_dashboard_mainboard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/layout_dashboard_chart"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_margin="12dp"
+                        android:background="#acacac"
+                        android:gravity="center"
+                        android:text="Chart" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@android:drawable/dialog_holo_light_frame"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp">
+
+                        <EditText
+                            android:id="@+id/editText_dashboard_search"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/button_dashboard_search"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:id="@+id/button_dashboard_search"
+                            style="@style/Widget.AppCompat.Button.Borderless"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_margin="4dp"
+                            android:background="@drawable/ic_search_black_24dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/layout_dashboard_pid"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="8dp"
+                        android:overScrollMode="never"
+                        app:items="@{viewmodel.recipeList}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/recipe_list_item"
+                        tools:itemCount="2"/>
+
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
 </layout>

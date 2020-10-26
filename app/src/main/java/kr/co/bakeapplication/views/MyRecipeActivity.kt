@@ -28,6 +28,11 @@ class MyRecipeActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding.viewmodel = mViewModel
+
+        mBinding.swiperefreshlayoutMyrecipeRecipes.setOnRefreshListener {
+            mViewModel.syncRecipes()
+            endLoading()
+        }
     }
 
     companion object{
@@ -46,6 +51,13 @@ class MyRecipeActivity : BaseActivity() {
         }
     }
 
+    override fun startLoading() {
+        super.startLoading()
+    }
 
+    override fun endLoading() {
+        super.endLoading()
+        mBinding.swiperefreshlayoutMyrecipeRecipes.isRefreshing = false
+    }
 
 }

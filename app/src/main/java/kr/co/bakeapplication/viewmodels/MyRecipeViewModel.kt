@@ -59,6 +59,14 @@ class MyRecipeViewModel(private val application: Activity): ViewModel() {
                 Log.d("BaseActivity", "onDataChange")
                 val list = snapshot.getValue<Map<String, Any>>()
                 Log.d("BaseActivity", "list :" + list)
+                //Reset Recipe List
+                val it = _recipeList.iterator()
+                while(it.hasNext()){
+                    it.apply {
+                        next()
+                        remove()
+                    }
+                }
                 if (list != null) {
                     for ((k, v) in list) {
                         Log.d("BaseActivity", "value : " + v)

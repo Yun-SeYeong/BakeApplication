@@ -28,6 +28,12 @@ class DashboardActivity : BaseActivity() {
         mBinding.lifecycleOwner = this
         mBinding.viewmodel = mViewModel
 
+        //SwipeRefreshLayout
+        mBinding.swiperefreshlayoutDashboardMainboard.setOnRefreshListener {
+            mViewModel.syncRecipes()
+            endLoading()
+        }
+
         mViewModel.isLogin.observe(this, Observer {
             Log.d(TAG, "isLogin : $it")
             if (!it) {
@@ -36,6 +42,15 @@ class DashboardActivity : BaseActivity() {
                 startActivity(intent)
             }
         })
+    }
+
+    override fun startLoading() {
+        super.startLoading()
+    }
+
+    override fun endLoading() {
+        super.endLoading()
+        mBinding.swiperefreshlayoutDashboardMainboard.isRefreshing = false
     }
 
     fun onProfileClicked(view: View) {
