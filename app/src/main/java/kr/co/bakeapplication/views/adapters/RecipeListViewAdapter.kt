@@ -34,7 +34,7 @@ class RecipeListViewAdapter: RecyclerView.Adapter<RecipeBindingViewHolder<Recipe
     ) {
         holder.mBinding.recipe = recipes[position]
         Glide.with(mContext).load(recipes[position].thumbNailUri).into(holder.mBinding.imageviewRecipeThumbnail)
-        holder.mBinding.layoutRecipeItem.setOnClickListener {
+        holder.mBinding.cardviewRecipeItem.setOnClickListener {
             val intent = Intent(mContext, RecipeActivity::class.java)
             intent.putExtra("RECIPE", recipes[position])
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
