@@ -41,7 +41,8 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:orientation="horizontal">
 
                         <Button
                             android:id="@+id/button_dashboard_profile"
@@ -51,6 +52,13 @@
                             android:background="@drawable/twotone_account_circle_black_48dp"
                             android:visibility="@{viewmodel.isLogin ? View.VISIBLE : View.GONE}"
                             android:onClick="@{ () -> viewmodel.userProfileButtonEvent() }"/>
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@={viewmodel.profile.profilename}"
+                            android:textSize="21dp"
+                            android:layout_marginHorizontal="16dp"/>
 
                     </LinearLayout>
 

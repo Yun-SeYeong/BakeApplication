@@ -28,6 +28,9 @@ class DashboardActivity : BaseActivity() {
         mBinding.lifecycleOwner = this
         mBinding.viewmodel = mViewModel
 
+        //Sync Profile
+        mViewModel.syncProfile()
+
         //SwipeRefreshLayout
         mBinding.swiperefreshlayoutDashboardMainboard.setOnRefreshListener {
             mViewModel.syncRecipes()

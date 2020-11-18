@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,6 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.getValue
+import kr.co.bakeapplication.data.Profile
 import kr.co.bakeapplication.data.Recipe
 import kr.co.bakeapplication.repositorys.FirebaseAuthRepository
 import kr.co.bakeapplication.repositorys.FirebaseDBRepository
@@ -63,11 +65,35 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
     val recipeList: ObservableArrayList<Recipe>
         get() = _recipeList
 
+    val profile: ObservableField<Profile?> = ObservableField()
+
     fun userProfileButtonEvent() {
         Log.d("BaseActivity", "userProfileButtonEvent")
         val intent = Intent(application, ProfileActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         application.startActivity(intent)
+    }
+
+    fun syncProfile() {
+        _firebaseDBRepository.getProfile(object: ValueEventListener {
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val list = snapshot.getValue<Map<String, Any>>()
+                Log.d("BaseActivity", "profile list: " + list)
+                if (list != null) {
+                    var p = Profile("", "", "")
+                    for ((k, v) in list) {
+                        p.toObj(v as Map<String, Any?>)
+                    }
+                    if (p.firebasetoken != "") {
+                        profile.set(p)
+                    }
+                }
+            }
+        })
     }
 
     fun syncRecipes() {
@@ -101,6 +127,7 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
         })
         _currentState = DashboardState.endLoading()
     }
+
 
     override fun onCleared() {
         super.onCleared()
