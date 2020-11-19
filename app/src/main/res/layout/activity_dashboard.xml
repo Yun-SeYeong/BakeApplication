@@ -44,8 +44,8 @@
                         android:padding="10dp"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/button_dashboard_profile"
+                        <ImageView
+                            android:id="@+id/imageview_dashboard_profile"
                             style="@style/Widget.AppCompat.Button.Borderless"
                             android:layout_width="52dp"
                             android:layout_height="52dp"

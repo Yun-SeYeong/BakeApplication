@@ -17,6 +17,7 @@ import kr.co.bakeapplication.data.Recipe
 import kr.co.bakeapplication.repositorys.FirebaseAuthRepository
 import kr.co.bakeapplication.repositorys.FirebaseDBRepository
 import kr.co.bakeapplication.viewhandlers.BaseActivityHandler
+import kr.co.bakeapplication.viewhandlers.DashboardActivityHandler
 import kr.co.bakeapplication.views.ProfileActivity
 import kotlin.properties.Delegates
 import kotlin.reflect.KProperty
@@ -33,6 +34,10 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
                 (application as BaseActivityHandler).startLoading()
             is DashboardState.endCheckLogin ->
                 (application as BaseActivityHandler).endLoading()
+            is DashboardState.startSyncProfile ->
+                (application as DashboardActivityHandler).startSyncProfile()
+            is DashboardState.endSyncProfile ->
+                (application as DashboardActivityHandler).endSyncProfile(newState.profile)
             is DashboardState.onError ->
                 (application as BaseActivityHandler).onError(newState.throwable)
         }
@@ -75,6 +80,7 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
     }
 
     fun syncProfile() {
+        _currentState = DashboardState.startSyncProfile()
         _firebaseDBRepository.getProfile(object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
@@ -90,6 +96,7 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
                     }
                     if (p.firebasetoken != "") {
                         profile.set(p)
+                        _currentState = DashboardState.endSyncProfile(p)
                     }
                 }
             }
