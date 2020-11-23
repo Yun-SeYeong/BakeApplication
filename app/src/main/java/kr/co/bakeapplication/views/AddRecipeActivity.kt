@@ -1,7 +1,10 @@
 package kr.co.bakeapplication.views
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ObservableArrayList
@@ -20,12 +23,24 @@ class AddRecipeActivity : BaseActivity(), AddRecipePageActivityHandler {
         AddRecipeViewModel(this)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mBinding.viewmodel = mViewModel
         mViewModel.thumbNailImage.observe(this, Observer {
             mBinding.imageviewAddrecipepageThumbnail.setImageURI(it)
+        })
+
+        mBinding.nestedscrollviewAddrecipeRecipe.setOnScrollChangeListener(View.OnScrollChangeListener { view, scrollX, scrollY, oldScrollX, oldScrollY ->
+            if (scrollY > oldScrollY) {
+                mBinding.floatingActionButton.visibility = View.GONE
+                mBinding.buttonAddrecipeAddpage.visibility = View.GONE
+            }
+            if (scrollY < oldScrollY) {
+                mBinding.floatingActionButton.visibility = View.VISIBLE
+                mBinding.buttonAddrecipeAddpage.visibility = View.VISIBLE
+            }
         })
     }
 

@@ -14,7 +14,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@android:drawable/picture_frame"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:layout_marginVertical="16dp">
 
         <LinearLayout
             android:id="@+id/layout_recipepage_title"
@@ -44,9 +45,9 @@
 
         <ImageView
             android:id="@+id/button_recipepage_imagepicker"
-            android:layout_width="150dp"
+            android:layout_width="100dp"
             android:layout_height="150dp"
-            android:background="@android:drawable/picture_frame"
+            android:src="@drawable/twotone_photo_black_18dp"
             android:text="test"
             android:onClick="@{() -> viewmodel.loadImagePicker()}"
             app:layout_constraintTop_toBottomOf="@+id/layout_recipepage_title"

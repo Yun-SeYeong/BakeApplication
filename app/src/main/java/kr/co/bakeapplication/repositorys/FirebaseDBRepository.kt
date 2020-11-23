@@ -44,6 +44,11 @@ class FirebaseDBRepository {
         fun proccess() {
             runBlocking {
                 if (--progress == 0) {
+                    val postValue = recipe.toMap()
+                    val childUpdate = hashMapOf<String, Any>(
+                        "/recipes/$key" to postValue
+                    )
+                    _dbRef.updateChildren(childUpdate)
                     listener.OnComplete()
                 }
             }
@@ -57,15 +62,9 @@ class FirebaseDBRepository {
         }
 
         for((i, page) in recipe.pages!!.withIndex()) {
-            Log.d("BaseActivity", page.imageUri)
             _storageRepository.uploadFile("RecipeImage/$key/page$i", page.imageUri).addOnCompleteListener {
                 _storageRepository.getDownloadUrl("RecipeImage/$key/page$i").addOnCompleteListener {
                     recipe.pages!![i].imageUri = it.result.toString()
-                    val postValue = recipe.toMap()
-                    val childUpdate = hashMapOf<String, Any>(
-                        "/recipes/$key" to postValue
-                    )
-                    _dbRef.updateChildren(childUpdate)
                     proccess()
                 }
             }
