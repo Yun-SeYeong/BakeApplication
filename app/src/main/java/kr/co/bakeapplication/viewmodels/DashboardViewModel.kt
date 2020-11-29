@@ -72,6 +72,8 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
 
     val profile: ObservableField<Profile?> = ObservableField()
 
+    val searchText = MutableLiveData<String>("")
+
     fun userProfileButtonEvent() {
         Log.d("BaseActivity", "userProfileButtonEvent")
         val intent = Intent(application, ProfileActivity::class.java)
@@ -105,7 +107,7 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
 
     fun syncRecipes() {
         _currentState = DashboardState.startLoading()
-        _firebaseDBRepository.readRecipes(object: ValueEventListener {
+        _firebaseDBRepository.readRecipes(searchText.value!!, object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -127,7 +129,9 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
                         Log.d("BaseActivity", "value : " + v)
                         val r = Recipe("","", "",null)
                         r.toObj(v as Map<String, Any?>)
-                        _recipeList.add(r)
+                        if (r.recipename.contains(searchText.value!!)) {
+                            _recipeList.add(r)
+                        }
                     }
                 }
             }

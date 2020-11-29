@@ -1,13 +1,17 @@
 package kr.co.bakeapplication.views
 
+import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.ShapeDrawable
 import android.graphics.drawable.shapes.OvalShape
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -52,6 +56,27 @@ class DashboardActivity : BaseActivity(), DashboardActivityHandler {
                 startActivity(intent)
             }
         })
+
+        mBinding.editTextDashboardSearch.addTextChangedListener {
+            Log.d("BaseActivity", "addTextChangedListener")
+            mViewModel.syncRecipes()
+        }
+
+        mViewModel.searchText.observe(this, Observer {
+            if (it != ""){
+                scrollTypingMode()
+                mBinding.layoutDashboardChart.visibility = View.GONE
+            } else {
+                mBinding.layoutDashboardChart.visibility = View.VISIBLE
+            }
+        })
+    }
+
+    private fun scrollTypingMode() {
+        Log.d("BaseActivity", "Ontouch")
+        mBinding.editTextDashboardSearch.requestFocus()
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as (InputMethodManager)
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY)
     }
 
     override fun startSyncProfile() {

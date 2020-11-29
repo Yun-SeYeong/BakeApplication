@@ -71,7 +71,8 @@ class FirebaseDBRepository {
         }
     }
 
-    fun readRecipes(listener: ValueEventListener) {
+    fun readRecipes(search: String, listener: ValueEventListener) {
+        Log.d("BaseActivity", "search word: '$search'")
         _dbRef.child("recipes").addListenerForSingleValueEvent(listener)
     }
 

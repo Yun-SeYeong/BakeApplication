@@ -75,6 +75,7 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
             <androidx.core.widget.NestedScrollView
+                android:id="@+id/nestedscrollview_dashboard_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -107,14 +108,15 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editText_dashboard_search"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"/>
+                            android:layout_height="50dp"
+                            android:text="@={viewmodel.searchText}"/>
 
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/layout_dashboard_pid"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_margin="16dp"
                         android:overScrollMode="never"
                         app:items="@{viewmodel.recipeList}"
