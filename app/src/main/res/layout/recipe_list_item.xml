@@ -32,7 +32,14 @@
                 android:padding="4dp"
                 android:gravity="center_vertical">
 
+                <ImageView
+                    android:id="@+id/imageview_recipe_creatorimg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/twotone_account_circle_black_48dp"/>
+
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/textview_recipe_creatorid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="21dp"

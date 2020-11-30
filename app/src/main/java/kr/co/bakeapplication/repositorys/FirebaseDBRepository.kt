@@ -168,4 +168,9 @@ class FirebaseDBRepository {
         Log.d("BaseActivity", "uid : " + _auth.uid)
         _dbRef.child("users").orderByChild("firebasetoken").equalTo(_auth.uid).limitToFirst(1).addListenerForSingleValueEvent(listener)
     }
+
+    fun getProfileByUID(uid: String, listener: ValueEventListener) {
+        Log.d("BaseActivity", "uid : " + _auth.uid)
+        _dbRef.child("users").orderByChild("firebasetoken").equalTo(uid).limitToFirst(1).addListenerForSingleValueEvent(listener)
+    }
 }

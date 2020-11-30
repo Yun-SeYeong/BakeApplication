@@ -81,6 +81,11 @@ class DashboardViewModel(private val application: Activity): ViewModel() {
         application.startActivity(intent)
     }
 
+    fun findProfile(uid: String, listener: ValueEventListener) {
+        Log.d("BaseActivity", "getProfileByUID")
+        _firebaseDBRepository.getProfileByUID(uid, listener)
+    }
+
     fun syncProfile() {
         _currentState = DashboardState.startSyncProfile()
         _firebaseDBRepository.getProfile(object: ValueEventListener {

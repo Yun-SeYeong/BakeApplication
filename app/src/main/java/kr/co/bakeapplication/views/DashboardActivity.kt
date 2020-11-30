@@ -12,16 +12,21 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.RequiresApi
 import androidx.core.widget.addTextChangedListener
+import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.databinding.ObservableArrayList
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kr.co.bakeapplication.R
 import kr.co.bakeapplication.data.Profile
+import kr.co.bakeapplication.data.Recipe
 import kr.co.bakeapplication.databinding.ActivityDashboardBinding
 import kr.co.bakeapplication.repositorys.FirebaseAuthFactory
 import kr.co.bakeapplication.viewhandlers.DashboardActivityHandler
 import kr.co.bakeapplication.viewmodels.DashboardViewModel
+import kr.co.bakeapplication.views.adapters.RecipeListViewAdapter
 
 class DashboardActivity : BaseActivity(), DashboardActivityHandler {
     private val TAG = "DashboardActivity"
@@ -103,5 +108,32 @@ class DashboardActivity : BaseActivity(), DashboardActivityHandler {
 
     fun onProfileClicked(view: View) {
         mViewModel.userProfileButtonEvent()
+    }
+
+    companion object{
+        @BindingAdapter("items")
+        @JvmStatic
+        fun setItems(recyclerView: RecyclerView, viewModel: DashboardViewModel) {
+            Log.d("BaseActivity",  "items")
+            var adapter: RecipeListViewAdapter
+            if (recyclerView.adapter == null) {
+                adapter = RecipeListViewAdapter(viewModel)
+                recyclerView.adapter = adapter
+            } else {
+                adapter = recyclerView.adapter as RecipeListViewAdapter
+            }
+
+            adapter.updateRecipes(viewModel.recipeList)
+        }
+        @BindingAdapter("recipes")
+        @JvmStatic
+        fun setRecipes(recyclerView: RecyclerView, recipes: ObservableArrayList<Recipe>) {
+            Log.d("BaseActivity",  "items")
+            var adapter: RecipeListViewAdapter
+            if (recyclerView.adapter != null) {
+                adapter = recyclerView.adapter as RecipeListViewAdapter
+                adapter.updateRecipes(recipes)
+            }
+        }
     }
 }

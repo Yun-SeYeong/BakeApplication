@@ -21,10 +21,11 @@ import kr.co.bakeapplication.data.Profile
 import kr.co.bakeapplication.data.Recipe
 import kr.co.bakeapplication.databinding.RecipeListItemBinding
 import kr.co.bakeapplication.viewmodels.DashboardViewModel
+import kr.co.bakeapplication.viewmodels.MyRecipeViewModel
 import kr.co.bakeapplication.views.DashboardActivity
 import kr.co.bakeapplication.views.RecipeActivity
 
-class RecipeListViewAdapter(private val viewModel: DashboardViewModel): RecyclerView.Adapter<RecipeBindingViewHolder<RecipeListItemBinding>>() {
+class MyRecipeListViewAdapter(private val viewModel: MyRecipeViewModel): RecyclerView.Adapter<RecipeBindingViewHolder<RecipeListItemBinding>>() {
     private val recipes = ArrayList<Recipe>()
     private lateinit var mContext: Context
 
@@ -51,7 +52,6 @@ class RecipeListViewAdapter(private val viewModel: DashboardViewModel): Recycler
             intent.flags = Intent.FLAG_ACTIVITY_SINGLE_TOP or Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             mContext.startActivity(intent)
         }
-        Log.d("BaseActivity", "findProfile")
         viewModel.findProfile(recipes[position].creatoruid, object: ValueEventListener {
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")

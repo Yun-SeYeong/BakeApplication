@@ -69,7 +69,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
-                app:items="@{viewmodel.recipeList}"
+                app:items="@{viewmodel}"
+                app:recipes="@{viewmodel.recipeList}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:listitem="@layout/recipe_list_item"/>
 

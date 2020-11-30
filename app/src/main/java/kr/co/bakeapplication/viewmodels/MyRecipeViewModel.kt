@@ -48,6 +48,10 @@ class MyRecipeViewModel(private val application: Activity): ViewModel() {
     val recipeList: ObservableArrayList<Recipe>
         get() = _recipeList
 
+    fun findProfile(uid: String, listener: ValueEventListener) {
+        _firebaseDBRepository.getProfileByUID(uid, listener)
+    }
+
     fun syncRecipes() {
         _currentState = MyRecipeState.startLoading()
         _firebaseDBRepository.readMyRecipes(object: ValueEventListener{

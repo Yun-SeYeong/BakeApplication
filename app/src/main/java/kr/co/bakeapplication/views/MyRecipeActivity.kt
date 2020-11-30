@@ -17,6 +17,7 @@ import kr.co.bakeapplication.databinding.ActivityMyRecipeBinding
 import kr.co.bakeapplication.repositorys.RecipeViewModelFactory
 import kr.co.bakeapplication.viewmodels.MyRecipeViewModel
 import kr.co.bakeapplication.viewmodels.RecipeViewModel
+import kr.co.bakeapplication.views.adapters.MyRecipeListViewAdapter
 import kr.co.bakeapplication.views.adapters.RecipeListViewAdapter
 
 class MyRecipeActivity : BaseActivity() {
@@ -38,16 +39,26 @@ class MyRecipeActivity : BaseActivity() {
     companion object{
         @BindingAdapter("items")
         @JvmStatic
-        fun setItems(recyclerView: RecyclerView, recipes: ObservableArrayList<Recipe>) {
-            var adapter: RecipeListViewAdapter
+        fun setItems(recyclerView: RecyclerView, viewModel: MyRecipeViewModel) {
+            var adapter: MyRecipeListViewAdapter
             if (recyclerView.adapter == null) {
-                adapter = RecipeListViewAdapter()
+                adapter = MyRecipeListViewAdapter(viewModel)
                 recyclerView.adapter = adapter
             } else {
-                adapter = recyclerView.adapter as RecipeListViewAdapter
+                adapter = recyclerView.adapter as MyRecipeListViewAdapter
             }
 
-            adapter.updateRecipes(recipes)
+            adapter.updateRecipes(viewModel.recipeList)
+        }
+        @BindingAdapter("recipes")
+        @JvmStatic
+        fun setRecipes(recyclerView: RecyclerView, recipes: ObservableArrayList<Recipe>) {
+            Log.d("BaseActivity",  "items")
+            var adapter: MyRecipeListViewAdapter
+            if (recyclerView.adapter != null) {
+                adapter = recyclerView.adapter as MyRecipeListViewAdapter
+                adapter.updateRecipes(recipes)
+            }
         }
     }
 
